@@ -8,14 +8,15 @@
  * @version 1.0
  */
 
-define("SERVER","localhost");
-define("USER","user");
-define("PASS","pass");
-define("DB","db");
+// En caso de que los archivos php no se encuentren directamente en el hosting se cambia el dato de host "localhost"
+// a  "simba.fing.000webhostapp.com"
 
-//OTROS DATOS
-define("DEBUG","true");
+$link = mysqli_connect("localhost", "admin", "abcd1234", "id7433662_becas_fing");
 
+    if (!$link) {
+        echo "Error: No se pudo conectar";
+    }
+    
+    echo "Ya se conecto, yeeey";
 
-
-
+    mysqli_close($link);
