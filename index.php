@@ -6,43 +6,21 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <h3>Alumnos</h3>
-        </div>
-        <div class="row">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Matrícula</th>
-                        <th>Nombre completo</th>
-                        <th>Correo electrónico</th>
-                        <th>Beca asignada</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <!--Metodo para renderizar los datos de la tabla-->
-                        <?php
-                        include 'database.php';
-                        $pdo = Database::connect();
-                        $sql = 'SELECT * FROM alumnos';
-                        foreach ($pdo->query($sql) as $row) {
-                            echo '<tr>';
-                                echo '<td>'. $row['matricula'] . '</td>';
-                                echo '<td>'. $row['nombre_alumno'] . ' ' . $row['apellido_paterno'] . ' ' . $row['apellido_materno'] . '</td>';
-                                echo '<td>'. $row['correo_electronico'] . '</td>';
-                                echo '<td>'. $row['id_beca'] . '</td>';
-                                echo '<td>'. $row['id_estado'] . '</td>';
-                            echo '</tr>';
-                        }
-                        Database::disconnect();
-                        ?>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> <!-- /container -->
+<div class="container">
+    <div class="row">
+        <h2>Simba</h2>
+        <h4>Sistema de Becas - Facultad de ingeniería</h4>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="routes/alumnos.php" role="button">Alumnos</a>
+        <a class="btn btn-primary" href="routes/archivo.php" role="button">Archivo</a>
+        <a class="btn btn-primary" href="routes/asistencias.php" role="button">Asistencias</a>
+        <a class="btn btn-primary" href="routes/becas.php" role="button">Becas</a>
+        <a class="btn btn-primary" href="routes/ciclos.php" role="button">Ciclos escolares</a>
+        <a class="btn btn-primary" href="routes/estados.php" role="button">Estados</a>
+        <a class="btn btn-primary" href="routes/usuarios.php" role="button">Usuarios</a>
+        <a class="btn btn-primary" href="routes/accesos.php" role="button">Control de accesos</a>
+    </div>
+</div> <!-- /container -->
 </body>
 </html>
