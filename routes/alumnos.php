@@ -17,6 +17,7 @@
                 <th>Matrícula</th>
                 <th>Nombre completo</th>
                 <th>Correo electrónico</th>
+                <th>Carrera</th>
                 <th>Beca asignada</th>
                 <th>Estado</th>
             </tr>
