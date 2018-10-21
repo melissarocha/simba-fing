@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/bootstrap.min.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -11,24 +11,29 @@
         <h2>Becas</h2>
     </div>
     <div class="row">
+        <p>
+            <a class="btn btn-success" href="new.php" >Agregar nueva Beca</a>
+        </p>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>Clave</th>
-                <th>Tipo la beca</th>
+                <th>Nombre de la beca</th>
+                <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <!--Metodo para renderizar los datos de la tabla-->
                 <?php
-                include '../config/database.php';
+                include '../../config/database.php';
                 $pdo = Database::connect();
-                $sql = 'SELECT * FROM becas';
+                $sql = 'SELECT * FROM becas ORDER BY id_beca';
                 foreach ($pdo->query($sql) as $row) {
                     echo '<tr>';
-                    echo '<td>'. $row['id_beca'] . '</td>';
-                    echo '<td>'. $row['tipo_beca'] . '</td>';
+                    echo '<td>'. $row['clave_beca'] . '</td>';
+                    echo '<td>'. $row['nombre_beca'] . '</td>';
+                    echo '<td><a class="btn btn-primary btn-sm" href="edit.php?id='.$row['id'].'">Editar</a></td>';
                     echo '</tr>';
                 }
                 Database::disconnect();
