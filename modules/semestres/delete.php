@@ -5,28 +5,28 @@
 
 require '../../config/database.php';
 
-$id_beca = null;
+$id_semestre = null;
 
-if ( !empty($_GET['id_beca']) ) {
-    $id_beca = $_REQUEST['id_beca'];
+if ( !empty($_GET['id_semestre']) ) {
+    $id_semestre = $_REQUEST['id_semestre'];
 }
 
-if ( null == $id_beca ) {
-    header("Location: becas.php");
+if ( null == $id_semestre ) {
+    header("Location: semestres.php");
 }
 
 if ( !empty($_POST) ) {
     // Definición de la variable
-    $id_beca = $_POST['id_beca'];
+    $id_semestre = $_POST['id_semestre'];
 
     // Eliminación de los datos
     $pdo = Database::connect();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "DELETE FROM becas WHERE id_beca = ?";
+    $sql = "DELETE FROM semestres WHERE id_semestre = ?";
     $q = $pdo->prepare($sql);
-    $q->execute(array($id_beca));
+    $q->execute(array($id_semestre));
     Database::disconnect();
-    header("Location: becas.php");
+    header("Location: semestres.php");
 }
 ?>
 
@@ -44,27 +44,27 @@ if ( !empty($_POST) ) {
 <div class="container">
     <div class="span10 offset1">
         <div class="row">
-            <h3>Eliminar beca</h3>
+            <h3>Eliminar semestre</h3>
         </div>
         <form class="form-horizontal" action="delete.php" method="post">
-            <input type="hidden" name="id_beca" value="<?php echo $id_beca;?>" />
-            <p class="alert alert-error">¿Estás seguro de borrar la beca
+            <input type="hidden" name="id_semestre" value="<?php echo $id_semestre;?>" />
+            <p class="alert alert-error">¿Estás seguro de borrar el semestre
                 <b><?php
                     $pdo = Database::connect();
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sql = "SELECT * FROM becas WHERE id_beca = ?";
+                    $sql = "SELECT * FROM semestres WHERE id_semestre = ?";
                     $q = $pdo->prepare($sql);
-                    $q->execute(array($id_beca));
+                    $q->execute(array($id_semestre));
                     $data = $q->fetch(PDO::FETCH_ASSOC);
-                    $clave_beca = $data['clave_beca'];
-                    $nombre_beca = $data['nombre_beca'];
+                    $clave_semestre = $data['clave_semestre'];
+                    $nombre_semestre = $data['nombre_semestre'];
                     Database::disconnect();
-                    echo $clave_beca . ' - ' . $nombre_beca;
+                    echo $clave_semestre . ' - ' . $nombre_semestre;
                     ?></b>? Esta acción no se puede deshacer.
             </p>
             <div class="form-actions">
                 <button type="submit" class="btn btn-danger">Eliminar</button>
-                <a class="btn" href="becas.php">Cancelar</a>
+                <a class="btn" href="semestres.php">Cancelar</a>
             </div>
         </form>
     </div>

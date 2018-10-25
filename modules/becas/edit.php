@@ -1,7 +1,7 @@
 <?php
 
-include '../../views/header.php';
-include '../../views/footer.php';
+// include ('../../views/header.php');
+// include ('../../views/footer.php');
 
 require '../../config/database.php';
 
@@ -44,30 +44,35 @@ if ( !empty($_POST) ) {
 
     // VALIDACIONES
     // Validaciones de la variable 'clave_beca'
-    $valid_beca = true;
+    $valid = true;
     if ( ($count > 0) && ($clave_beca_compara != $clave_beca) ) { // En caso de encontrar registro duplicados y permitir la sobreescritura del registro...
         $claveError = "La clave " . $clave_beca . " ya existe.";
-        $valid_beca = false;
+        $valid = false;
     } else if ( empty($clave_beca) ) { // En caso de que el input esté vacío...
         $claveError = 'Por favor ingresa la clave para id_becaentificar la beca.';
-        $valid_beca = false;
+        $valid = false;
     } elseif ( strlen($clave_beca) != 2 ) {  // En caso de que 'clave_beca' no sea de 2 caracteres de longitud...
         $claveError = 'La clave de la beca debe tener 2 caracteres.';
-        $valid_beca = false;
+        $valid = false;
+    } elseif ( ctype_alpha(str_replace(' ', '', $clave_beca)) === false ) {
+        $claveError = 'La clave debe contener solo letras.';
+        $valid = false;
     }
 
     // Validaciones de la variable 'nombre_beca'
     if ( empty($nombre_beca) ) {  // En caso de que el input esté vacío...
         $nombreError = 'Por favor ingresa el nombre de la beca.';
-        $valid_beca = false;
-    }
-    elseif ( strlen($nombre_beca) > 30 ) { // En caso de que 'clave_beca' sea mayor de 30 caracteres de longitud...
+        $valid = false;
+    } elseif ( strlen($nombre_beca) > 30 ) { // En caso de que 'clave_beca' sea mayor de 30 caracteres de longitud...
         $nombreError = 'El nombre debe ser menor a 30 caracteres.';
-        $valid_beca = false;
+        $valid = false;
+    } elseif ( ctype_alpha(str_replace(' ', '', $nombre_beca)) === false ) {
+        $nombreError = 'El nombre debe contener solo letras.';
+        $valid = false;
     }
 
     // Actualización de los datos
-    if ( $valid_beca ) {
+    if ( $valid ) {
         $pdo = Database::connect();
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "UPDATE becas SET clave_beca = ?, nombre_beca = ? WHERE id_beca = ?;";

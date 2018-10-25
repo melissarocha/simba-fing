@@ -17,7 +17,7 @@ include ('views/header.php');
             <a class="btn btn-primary btn-block" href="modules/asistencias/asistencias.php" role="button">Asistencias</a>
             <a class="btn btn-primary btn-block" href="modules/becas/becas.php" role="button">Becas</a>
             <a class="btn btn-primary btn-block" href="modules/carreras/carreras.php" role="button">Carreras</a>
-            <a class="btn btn-primary btn-block" href="modules/ciclos/ciclos.php" role="button">Ciclos escolares</a>
+            <a class="btn btn-primary btn-block" href="modules/semestres/semestres.php" role="button">Semestres</a>
             <a class="btn btn-primary btn-block" href="modules/estados/estados.php" role="button">Estados</a>
             <a class="btn btn-primary btn-block" href="modules/usuarios/usuarios.php" role="button">Usuarios</a>
             <a class="btn btn-primary btn-block" href="modules/accesos/accesos.php" role="button">Control de accesos</a>
