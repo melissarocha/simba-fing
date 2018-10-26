@@ -35,9 +35,6 @@ if ( !empty($_POST) ) {
     // Transforma a mayúsculas la variable 'clave_semestre'
     $clave_semestre = strtoupper($clave_semestre);
 
-    // Veriable que contiene la expresion regular que define el formato correcto de 'clave_semestre'
-    $clave_semestre_formato = '/^[0-9]{4}-[A-B]{1}$/';
-
     // Contador para encontrar registros duplicados
     $pdo = Database::connect();
     $stmt = $pdo -> prepare("SELECT count(*) FROM semestres WHERE clave_semestre = ?");
@@ -57,7 +54,7 @@ if ( !empty($_POST) ) {
     } elseif ( strlen($clave_semestre) != 6 ) { // En caso de que 'clave_semestre' no sea de 2 caracteres de longitud...
         $claveError = 'La clave del semestre debe tener 6 caracteres.';
         $valid = false;
-    } elseif ( !preg_match($clave_semestre_formato, $clave_semestre) ) { // En caso de que 'clave_semestre' no tenga el formato correcto...
+    } elseif ( !preg_match('/^[0-9]{4}-[A-B]{1}$/', $clave_semestre) ) { // En caso de que 'clave_semestre' no tenga el formato correcto...
         $claveError = 'La clave del semestre debe tener el siguiente formato: 4 numeros, seguidos de un guión, y después 1 letra A o B.';
         $valid = false;
     }

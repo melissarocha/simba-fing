@@ -29,6 +29,7 @@
             <tr>
                 <th>Clave</th>
                 <th>Tipo de usuario</th>
+                <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
