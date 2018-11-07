@@ -21,6 +21,7 @@ include ('views/header.php');
             <a class="btn btn-primary btn-block" href="modules/estados/estados.php" role="button">Estados</a>
             <a class="btn btn-primary btn-block" href="modules/usuarios/usuarios.php" role="button">Usuarios</a>
             <a class="btn btn-primary btn-block" href="modules/accesos/accesos.php" role="button">Control de accesos</a>
+            <a class="btn btn-primary btn-block" href="modules/cafeteria/cafeteria.php" role="button">Cafetería</a>
         </div>
     </div> <!-- /container -->
 
