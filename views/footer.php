@@ -1,6 +1,7 @@
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Facultad de Ingenieria UACH - 2018 &copy</span>
+        <span class="text-muted">Facultad de Ingenieria UACH - 2018 &copy |</span>
+        <span><a href="../logout.php">Cerrar sesión</a></span>
     </div>
 </footer>
 
