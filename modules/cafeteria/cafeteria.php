@@ -10,12 +10,6 @@ if ( !empty($_POST) ) {
     $matricula = null;
     $matricula = $_POST['matricula'];
 
-//    $stmt = $pdo -> prepare("SELECT matricula, nombre_alumno, apellido_paterno, apellido_materno, nombre_carrera FROM asistencias_beca ab
-//                                       INNER JOIN alumnos a ON ab.id_alumno = a.id_alumno
-//                                       LEFT JOIN carreras c ON a.id_carrera = c.id_carrera
-//                                       WHERE matricula = $
-//                                       AND DATE(NOW()) = DATE(fecha_asistencia_beca)");
-
     // Contador para encontrar registros cobrados en el dia actual y para buscar si existe la matricula en el sistema
     $pdo = Database::connect();
     $stmt = $pdo -> prepare("SELECT matricula FROM asistencias_beca ab
@@ -55,16 +49,7 @@ if ( !empty($_POST) ) {
 
     // Registro de los datos
     if ( $valid ) {
-
-        // HELP AQUI CESAR :DDDDDDDDDDDD
-
-//        $pdo = Database::connect();
-//        $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//        $sql = "INSERT INTO control_accesos (clave_control_acceso, tipo_usuario) values(?, ?)";
-//        $q = $pdo -> prepare($sql);
-//        $q -> execute(array($clave_control_acceso, $tipo_usuario));
-//        Database::disconnect();
-        //header("Location: ../../index.php");
+        header("Location: confirm_matricula.php?matricula=' . $matricula . "); // No jala
     }
 }
 ?>
