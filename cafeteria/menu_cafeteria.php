@@ -22,7 +22,7 @@ include ('../views/header.php');
 
     <div class="container">
         <div class="row col">
-            <a class="btn btn-primary btn-block" href="../modules/alumnos/alumnos.php" role="button">Cafeteria</a>
+            <a class="btn btn-primary btn-block" href="../modules/cafeteria/cafeteria.php" role="button">Cafeteria</a>
 
         </div>
     </div> <!-- /container -->
