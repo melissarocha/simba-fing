@@ -7,8 +7,8 @@ require '../../config/database.php';
 
 $matricula = null;
 
-if ( !empty($_GET['id_matricula']) ) {
-    $matricula = $_REQUEST['id_matricula'];
+if ( !empty($_GET['matricula']) ) {
+    $matricula = $_REQUEST['matricula'];
 }
 
 if ( null == $matricula ) {
@@ -17,15 +17,15 @@ if ( null == $matricula ) {
 
 if ( !empty($_POST) ) {
     // Definición de la variable
-    $matricula = $_POST['id_matricula'];
+    $matricula = $_POST['matricula'];
 
-    // Eliminación de los datos
+    // Creacion del registro
     $pdo = Database::connect();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO asistencias_beca (id_alumno, fecha_asistencia_beca, hora_asistencia_beca) values(
               (SELECT id_alumno FROM alumnos WHERE matricula = ?), CURDATE(), NOW())";
     $q = $pdo -> prepare($sql);
-    $q -> execute(array($matricula, $fecha_asistencia_beca, $hora_asistencia_beca));
+    $q -> execute(array($matricula));
     Database::disconnect();
     header("Location: cafeteria.php");
 }
@@ -47,16 +47,16 @@ if ( !empty($_POST) ) {
         <div class="row">
             <h3>Cobrar beca</h3>
         </div>
-        <form class="form-horizontal" action="delete.php" method="post">
+        <form class="form-horizontal" action="confirm_matricula.php" method="post">
             <input type="hidden" name="matricula" value="<?php echo $matricula;?>" />
-            <p class="alert alert-error">
+            <div class="alert alert-warning">
                 <?php
                 $pdo = Database::connect();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = "SELECT matricula, nombre_alumno, apellido_paterno, apellido_materno, nombre_carrera FROM asistencias_beca ab
                         INNER JOIN alumnos a ON ab.id_alumno = a.id_alumno
                         LEFT JOIN carreras c ON a.id_carrera = c.id_carrera
-                        WHERE matricula = $";
+                        WHERE matricula = ?";
                 $q = $pdo->prepare($sql);
                 $q->execute(array($matricula));
                 $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -65,11 +65,12 @@ if ( !empty($_POST) ) {
                 $apellido_materno = $data['apellido_materno'];
                 $nombre_carrera = $data['nombre_carrera'];
                 Database::disconnect();
-                echo 'Matricula: ' . $matricula;
-                echo 'Alumno: ' . $nombre_alumno . ' ' . $apellido_paterno . ' ' . $apellido_materno;
-                echo 'Carrera: ' . $nombre_carrera;
+                echo '<h3>Revise los datos antes de efectuar el cobro:</h3>';
+                echo '<b>Matricula:</b> ' . $matricula . '<br>';
+                echo '<b>Alumno:</b> ' . $nombre_alumno . ' ' . $apellido_paterno . ' ' . $apellido_materno . '<br>';
+                echo '<b>Carrera:</b> ' . $nombre_carrera;
                 ?>
-            </p>
+            </div>
             <div class="form-actions">
                 <button type="submit" class="btn btn-success">Cobrar</button>
                 <a class="btn" href="../../cafeteria/menu_cafeteria.php">Cancelar</a>

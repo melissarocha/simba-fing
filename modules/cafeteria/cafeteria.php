@@ -22,6 +22,14 @@ if ( !empty($_POST) ) {
                                        WHERE matricula = ?");
     $stmt -> execute([$matricula]);
     $countMatricula = $stmt -> fetchColumn();
+    $sql = "SELECT hora_asistencia_beca FROM asistencias_beca ab
+            INNER JOIN alumnos a ON ab.id_alumno = a.id_alumno
+            WHERE matricula = ?
+            AND DATE(NOW()) = DATE(fecha_asistencia_beca)";
+    $q = $pdo->prepare($sql);
+    $q->execute(array($matricula));
+    $data = $q->fetch(PDO::FETCH_ASSOC);
+    $hora_asistencia_beca = $data['hora_asistencia_beca'];
     Database::disconnect();
 
     // VALIDACIONES
@@ -40,16 +48,34 @@ if ( !empty($_POST) ) {
         $matriculaError = "La matricula " . $matricula . " no esta registrada en el programa de becas. Revise la matricula e intente nuevamente.";
         $valid = false;
     } else if ( $countCobro > 0 ) { // En caso de encontrar registro cobrados en el dia actual...
-        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+        $dias = array("domingo","lunes","martes","miercoles","jueves","viernes","sábado");
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
 
-        $matriculaError = "La matricula  " . $matricula . " ya cobró la beca del día de hoy " . $dias[date('w')]." ".date('d')." de ".$meses[date('n')-1] . " a las _ inserte variable que imprima la hora aqui parfavar:'v _.";
+        $matriculaError = "La matricula  " . $matricula . " ya cobró la beca del día de hoy " . $dias[date('w')] . " " . date('d'). " de " . $meses[date('n')-1] . " a las " . $hora_asistencia_beca . ".";
         $valid = false;
     }
 
     // Registro de los datos
     if ( $valid ) {
-        header("Location: ../becas/becas.php"); // No jala
+        header("Location: confirm_matricula.php?matricula=$matricula");
+//        $pdo = Database::connect();
+//        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//        $sql = "SELECT nombre_alumno, apellido_paterno, apellido_materno, nombre_carrera FROM asistencias_beca ab
+//                INNER JOIN alumnos a ON ab.id_alumno = a.id_alumno
+//                LEFT JOIN carreras c ON a.id_carrera = c.id_carrera
+//                WHERE matricula = ?
+//                AND DATE(NOW()) = DATE(fecha_asistencia_beca)";
+//        $q = $pdo->prepare($sql);
+//        $q->execute(array($matricula));
+//        $data = $q->fetch(PDO::FETCH_ASSOC);
+//        $nombre_alumno = $data['nombre_alumno'];
+//        $apellido_paterno = $data['apellido_paterno'];
+//        $apellido_materno = $data['apellido_materno'];
+//        $nombre_carrera = $data['nombre_carrera'];
+//        Database::disconnect();
+//        echo 'Matricula: ' . $matricula;
+//        echo 'Alumno: ' . $nombre_alumno . ' ' . $apellido_paterno . ' ' . $apellido_materno;
+//        echo 'Carrera: ' . $nombre_carrera;
     }
 }
 ?>
