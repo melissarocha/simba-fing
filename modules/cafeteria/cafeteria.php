@@ -49,7 +49,7 @@ if ( !empty($_POST) ) {
 
     // Registro de los datos
     if ( $valid ) {
-        header("Location: confirm_matricula.php?matricula=' . $matricula . "); // No jala
+        header("Location: ../becas/becas.php"); // No jala
     }
 }
 ?>
