@@ -108,7 +108,7 @@ if ( !empty($_POST) ) {
 <div class="container">
     <div class="span10 offset1">
         <div class="row">
-            <h3>Actualizar beca</h3>
+            <h3>Actualizar control de acceso</h3>
         </div>
         <form class="form-horizontal" action="edit.php?id_control_acceso=<?php echo $id_control_acceso?>" method="post">
             <div class="control-group <?php echo !empty($claveError)?'error':'';?>">
